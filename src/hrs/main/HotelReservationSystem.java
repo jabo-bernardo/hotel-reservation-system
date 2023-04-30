@@ -55,7 +55,7 @@ public class HotelReservationSystem extends JFrame {
         this.add(mainAppContainer);       
     }
     
-    public static void setScreen(String screenName) {
+    public static void setActiveScreen(String screenName) {
         CardLayout screens = (CardLayout)(mainAppContainer.getLayout());
         screens.show(mainAppContainer, screenName);
     }
