@@ -1,6 +1,7 @@
 package hrs.utils;
 
 import hrs.models.Account;
+import hrs.models.Amenities;
 import hrs.models.Customer;
 import hrs.models.Receipt;
 import hrs.models.ReceiptItem;
@@ -15,4 +16,5 @@ public class Database {
     public static ArrayList<ReceiptItem> receiptItems = new ArrayList<>();
     public static ArrayList<Room> rooms = new ArrayList<>();
     public static ArrayList<Transaction> transactions = new ArrayList<>();
+    public static ArrayList<Amenities> amenities = new ArrayList<>();
 }

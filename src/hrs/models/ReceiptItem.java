@@ -6,10 +6,20 @@ public class ReceiptItem {
     private String itemTitle;
     private String itemDescription;
     private double itemPrice;
+    private int itemQuantity;
     
     public ReceiptItem() {
         ReceiptItem.CURRENT_ID++;
         this.id = ReceiptItem.CURRENT_ID;
+    }
+
+    public ReceiptItem(String itemTitle, double itemPrice, int itemQuantity) {
+        ReceiptItem.CURRENT_ID++;
+        this.id = ReceiptItem.CURRENT_ID;
+        
+        this.itemTitle = itemTitle;
+        this.itemPrice = itemPrice;
+        this.itemQuantity = itemQuantity;
     }
 
     public int getID() {
@@ -41,5 +51,13 @@ public class ReceiptItem {
     public ReceiptItem setItemPrice(double itemPrice) {
         this.itemPrice = itemPrice;
         return this;
+    }
+
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 }

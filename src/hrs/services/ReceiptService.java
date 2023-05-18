@@ -1,4 +1,6 @@
-import hrs.models.Account;
+package hrs.services;
+
+import hrs.models.DiscountItem;
 import hrs.models.Receipt;
 import hrs.models.ReceiptItem;
 import hrs.utils.Database;
@@ -17,6 +19,14 @@ public class ReceiptService {
         return receipt.getID();
     }
     
+    public static int addDiscountItemsToReceiptWithId(int receiptId, ArrayList<DiscountItem> items) {
+        Receipt receipt = getReceiptById(receiptId);
+        for (DiscountItem item : items) {
+            receipt.addDiscountItem(item);
+        }
+        return receipt.getID();
+    }
+    
     public static Receipt getReceiptById(int id) {
         Receipt receipt = Database.receipts.stream()
                 .filter(r -> r.getID() == id)
@@ -24,6 +34,19 @@ public class ReceiptService {
                 .orElse(null);
         return receipt;
     }
+    
+    public static double getTotalAmountOfReceipt(int receiptId) {
+        Receipt receipt = getReceiptById(receiptId);
+        
+        double totalAmount = receipt.getTotalPrice();
+        
+        for (DiscountItem discountItem : receipt.getDiscountItems()) {
+            float percentage = ((float) discountItem.getDiscountPercentage()) / 100 ;
+            totalAmount += percentage * totalAmount;
+        }
+        
+        return totalAmount;
+    };
     
     public static void updateReceipt() {
         // TODO

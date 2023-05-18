@@ -1,11 +1,13 @@
 package hrs.models;
 
 public class Room {
+    public static enum ROOM_CLASS { TOURIST, DELUXE, AMBASSADOR, CORPORATE, ANNEX };
     public static int CURRENT_ID = 0;
     private int id;
     private String roomClass;
     private String roomNumber;
-    private String roomPrice;
+    private int roomPrice;
+    private int promoPrice;
     
     public Room() {
         Room.CURRENT_ID++;
@@ -34,11 +36,23 @@ public class Room {
         return this;
     }
     
-    public String getRoomPrice() {
+    public int getRoomPrice() {
         return roomPrice;
     }
 
-    public void setRoomPrice(String roomPrice) {
+    public Room setRoomPrice(int roomPrice) {
         this.roomPrice = roomPrice;
+        return this;
     }
+
+    public int getPromoPrice() {
+        return promoPrice;
+    }
+
+    public Room setPromoPrice(int promoPrice) {
+        this.promoPrice = promoPrice;
+        return this;
+    }
+    
+    
 }

@@ -10,6 +10,7 @@ public class CustomerService {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setPhoneNumber(phoneNumber);
+        Database.customers.add(customer);
         return customer.getID();
     }
     

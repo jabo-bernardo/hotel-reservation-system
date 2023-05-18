@@ -42,4 +42,12 @@ public class Account {
         this.password = password;
         return this;
     }
+    
+    public boolean isAdministrator() {
+        return this.getAccountType() == ACCOUNT_TYPE.ADMINISTRATION;
+    }
+    
+    public boolean isStaff() {
+        return this.getAccountType() == ACCOUNT_TYPE.STAFF;
+    }
 }

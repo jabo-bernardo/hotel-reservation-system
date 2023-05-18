@@ -1,9 +1,12 @@
 package hrs.main;
 
+import hrs.models.Account;
 import hrs.screens.ApplicationScreen;
 import hrs.screens.AuthenticationScreen;
 import hrs.screens.SplashScreen;
+import hrs.screens.StaticScreens;
 import hrs.screens.TestScreen;
+import hrs.utils.Constants;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -15,26 +18,25 @@ public class HotelReservationSystem extends JFrame {
     
     public static JPanel mainAppContainer;
     
-    // Screens
-    SplashScreen splashScreen;
-    TestScreen testScreen;
-    AuthenticationScreen authenticationScreen;
-    ApplicationScreen applicationScreen;
+    public static Account authenticatedUser;
+    
+    public static String activeScreenString = Constants.SPLASH_SCREEN_NAME;
     
     public HotelReservationSystem() {
         super(DEFAULT_WINDOW_NAME);
-        this.initializeWindow();
         this.loadScreens();
         
         CardLayout cl = (CardLayout)(mainAppContainer.getLayout());
         cl.first(mainAppContainer);
+        
+        this.initializeWindow();
     }
     
     private void initializeWindow() {
         this.setSize(DEFAULT_WINDOW_DIMENSION);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
+//        this.setResizable(false);
         this.setVisible(true);
     }
     
@@ -42,21 +44,32 @@ public class HotelReservationSystem extends JFrame {
         mainAppContainer = new JPanel();
             mainAppContainer.setLayout(new CardLayout());
         
-            splashScreen = new SplashScreen();
-            testScreen = new TestScreen();
-            authenticationScreen = new AuthenticationScreen();
-            applicationScreen = new ApplicationScreen();
+            StaticScreens.splashScreen = new SplashScreen();
+            StaticScreens.authenticationScreen = new AuthenticationScreen();
+            StaticScreens.applicationScreen = new ApplicationScreen();
             
-            mainAppContainer.add(authenticationScreen, authenticationScreen.screenName);
-            mainAppContainer.add(splashScreen, splashScreen.screenName);
-            mainAppContainer.add(testScreen, testScreen.screenName);
-            mainAppContainer.add(applicationScreen, applicationScreen.screenName);           
+            mainAppContainer.add(StaticScreens.splashScreen, StaticScreens.splashScreen.screenName);
+            mainAppContainer.add(StaticScreens.applicationScreen, StaticScreens.applicationScreen.screenName);           
+            mainAppContainer.add(StaticScreens.authenticationScreen, StaticScreens.authenticationScreen.screenName);
             
         this.add(mainAppContainer);       
     }
     
     public static void setActiveScreen(String screenName) {
+        if (authenticatedUser == null && !screenName.equals(Constants.AUTHENTICATION_SCREEN_NAME))
+            return;
+        if (screenName.equals(Constants.APPLICATION_SCREEN_NAME))
+            StaticScreens.applicationScreen.renderScreen();
         CardLayout screens = (CardLayout)(mainAppContainer.getLayout());
         screens.show(mainAppContainer, screenName);
+        activeScreenString = screenName;
+    }
+    
+    public static String getActiveScreen() {
+        return activeScreenString;
+    }
+    
+    public static Account getAuthenticatedUser() {
+        return HotelReservationSystem.authenticatedUser;
     }
 }

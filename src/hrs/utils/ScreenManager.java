@@ -4,6 +4,10 @@ import hrs.main.HotelReservationSystem;
 import hrs.screens.ApplicationScreen;
 
 public class ScreenManager {
+    public static String getCurrentScreen() {
+        return HotelReservationSystem.getActiveScreen();
+    }
+    
     public static void switchToApplicationScreen() {
         HotelReservationSystem.setActiveScreen(Constants.APPLICATION_SCREEN_NAME);
     }
@@ -35,6 +39,10 @@ public class ScreenManager {
     public static void switchToApplicationUsersScreen() {
         ApplicationScreen.setActiveScreen(Constants.APPLICATION_USERS_SCREEN_NAME);
     }
+    public static void switchToApplicationAboutScreen() {
+        ApplicationScreen.setActiveScreen(Constants.APPLICATION_ABOUT_SCREEN_NAME);
+    }
+    
     
     
 }
